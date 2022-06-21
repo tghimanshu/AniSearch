@@ -16,7 +16,7 @@ export interface Anime {
   };
   description?: string;
   startDate: { day: number; month: number; year: number };
-  endDate?: string;
+  endDate: { day: number; month: number; year: number };
   season?: string;
   seasonYear?: number;
   duration?: number;
