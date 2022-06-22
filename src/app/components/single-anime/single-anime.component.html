@@ -1,49 +1,61 @@
-<div class="container mt-5" *ngIf="anime">
-  <div class="row">
-    <div class="col-4">
-      <img
-        [src]="anime.coverImage.large"
-        [alt]="anime.title.romaji"
-        class="img-thumbnail"
-      />
-      <div class="alert alert-primary">
-        {{ anime.startDate.day }}-{{ anime.startDate.month }}-{{
-          anime.startDate.year
-        }}
-        to {{ anime.endDate.day }}-{{ anime.endDate.month }}-{{
-          anime.endDate.year
-        }}
-      </div>
-    </div>
-    <div class="col-8">
-      <h1 class="fw-bold mb-0">{{ anime.title.english }}</h1>
-      <small>
-        <em>
-          {{ anime.title.romaji + ", " + anime.title.native }}
-        </em>
-      </small>
-      <div class="metaInfo mt-3">
-        <div class="badge bg-warning me-2">{{ anime.format }}</div>
-        <div class="badge bg-primary me-2">{{ anime.episodes }} Episodes</div>
-        <div class="badge bg-secondary me-2">{{ anime.duration }}m/ep</div>
-        <div class="badge bg-dark">
-          {{ anime.season }} - {{ anime.seasonYear }}
+<div
+  class="mainBg"
+  [ngStyle]="{
+    background:
+      'url(' +
+      anime.bannerImage +
+      ') no-repeat center center/cover, linear-gradient(rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%)',
+    height: '100vh',
+    width: '100vw'
+  }"
+  *ngIf="anime"
+>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-4">
+        <img
+          [src]="anime.coverImage.large"
+          [alt]="anime.title.romaji"
+          class="img-thumbnail"
+        />
+        <div class="alert alert-primary">
+          {{ anime.startDate.day }}-{{ anime.startDate.month }}-{{
+            anime.startDate.year
+          }}
+          to {{ anime.endDate.day }}-{{ anime.endDate.month }}-{{
+            anime.endDate.year
+          }}
         </div>
       </div>
-      <p class="description mt-3 text-justify">
-        {{ anime.description }}
-      </p>
-      <div class="card mt-4">
-        <div class="card-header">
-          <div class="card-title">Tags</div>
+      <div class="col-8">
+        <h1 class="fw-bold mb-0">{{ anime.title.english }}</h1>
+        <small>
+          <em>
+            {{ anime.title.romaji + ", " + anime.title.native }}
+          </em>
+        </small>
+        <div class="metaInfo mt-3">
+          <div class="badge bg-warning me-2">{{ anime.format }}</div>
+          <div class="badge bg-primary me-2">{{ anime.episodes }} Episodes</div>
+          <div class="badge bg-secondary me-2">{{ anime.duration }}m/ep</div>
+          <div class="badge bg-dark">
+            {{ anime.season }} - {{ anime.seasonYear }}
+          </div>
         </div>
-        <div class="card-body">
-          <div class="badge bg-info me-2 mb-2" *ngFor="let tag of anime.tags">
-            {{ tag.name }}
+        <p class="description mt-3 text-justify">
+          {{ anime.description }}
+        </p>
+        <div class="card mt-4">
+          <div class="card-header">
+            <div class="card-title">Tags</div>
+          </div>
+          <div class="card-body">
+            <div class="badge bg-info me-2 mb-2" *ngFor="let tag of anime.tags">
+              {{ tag.name }}
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<pre>{{ anime | json }}</pre>

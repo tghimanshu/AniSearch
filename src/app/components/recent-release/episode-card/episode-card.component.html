@@ -1,0 +1,24 @@
+<a [href]="anime.episodeUrl" class="anime-card d-block" @showAnimeCard>
+  <div
+    class="anime-card-img"
+    [ngStyle]="{
+      background: 'url(' + anime.animeImg + ') no-repeat center center/cover'
+    }"
+    [title]="anime.animeTitle"
+  ></div>
+  <div class="anime-card-content">
+    <div class="top w-100 d-flex justify-content-between">
+      <h5 class="fw-bold badge rounded-pill bg-primary text-uppercase px-3">
+        EP {{ anime.episodeNum }}
+      </h5>
+      <h5 class="fw-bold badge rounded-pill bg-dark text-uppercase px-3">
+        {{ anime.subOrDub }}
+      </h5>
+    </div>
+    <div class="w-100">
+      <h3 class="fw-bold text-center mb-1 px-2">
+        {{ anime.animeTitle }}
+      </h3>
+    </div>
+  </div>
+</a>

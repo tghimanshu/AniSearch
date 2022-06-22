@@ -6,12 +6,12 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
-import { Anime } from 'src/app/service/animes.service';
+import { LatestRelease } from 'src/app/models/lists.model';
 
 @Component({
-  selector: 'app-anime-card',
-  templateUrl: './anime-card.component.html',
-  styleUrls: ['./anime-card.component.css'],
+  selector: 'app-episode-card',
+  templateUrl: './episode-card.component.html',
+  styleUrls: ['./episode-card.component.css'],
   animations: [
     trigger('showAnimeCard', [
       state(':enter', style({ transform: 'scale(0)' })),
@@ -29,8 +29,9 @@ import { Anime } from 'src/app/service/animes.service';
     ]),
   ],
 })
-export class AnimeCardComponent implements OnInit {
-  @Input() anime!: Anime;
+export class EpisodeCardComponent implements OnInit {
+  @Input() anime!: LatestRelease;
+  streamUri: string = '';
 
   constructor() {}
 

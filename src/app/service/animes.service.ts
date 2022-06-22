@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
+import { LatestRelease } from '../models/lists.model';
 
 export interface Anime {
   id: number;
@@ -9,6 +10,7 @@ export interface Anime {
   coverImage: {
     large: string;
   };
+  bannerImage: string;
   title: {
     romaji: string;
     english: string;
@@ -17,10 +19,10 @@ export interface Anime {
   description?: string;
   startDate: { day: number; month: number; year: number };
   endDate: { day: number; month: number; year: number };
-  season?: string;
-  seasonYear?: number;
+  season: string;
+  seasonYear: number;
   duration?: number;
-  genres?: string;
+  genres: string;
   averageScore?: number;
   meanScore?: number;
   popularity?: number;
@@ -32,6 +34,7 @@ export interface Anime {
   providedIn: 'root',
 })
 export class AnimesService {
+  public streamUri = new BehaviorSubject<string>('');
   constructor(private http: HttpClient) {}
 
   getAnimes(pageNo: number, search?: string) {
@@ -47,6 +50,9 @@ export class AnimesService {
           } type: ANIME) {
             id, 
             format, 
+            season,
+            seasonYear,
+            genres,
             episodes, 
             coverImage { 
               large
@@ -98,6 +104,7 @@ export class AnimesService {
             coverImage { 
               large
             } 
+            bannerImage 
             title {
               romaji
               english
@@ -136,5 +143,15 @@ export class AnimesService {
           return value.data.Media;
         })
       );
+  }
+
+  getRecentReleases(type: string, pageNo: number = 1) {
+    const subOrDub = type === 'sub' ? 1 : 2;
+    return this.http.get<LatestRelease[]>(
+      'https://gogoanime.herokuapp.com/recent-release?page=' +
+        pageNo +
+        '&type=' +
+        subOrDub
+    );
   }
 }

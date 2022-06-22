@@ -1,1 +1,41 @@
-<p>anime-card works!</p>
+<div
+  [routerLink]="[anime.id]"
+  class="anime-card d-block"
+  @showAnimeCard
+  animeCardHover
+  [contentTemplate]="template"
+>
+  <div
+    class="anime-card-img"
+    [ngStyle]="{
+      background:
+        'url(' + anime.coverImage.large + ') no-repeat center center/cover'
+    }"
+    [title]="anime.title.english"
+  ></div>
+  <div class="anime-card-content">
+    <div class="top w-100 d-flex justify-content-between">
+      <h5 class="fw-bold badge rounded-pill bg-primary text-uppercase px-3">
+        {{ anime.episodes }} Eps
+      </h5>
+      <h5 class="fw-bold badge rounded-pill bg-dark text-uppercase px-3">
+        {{ anime.format }}
+      </h5>
+    </div>
+    <div class="w-100">
+      <h3 class="fw-bold text-center mb-1 px-2">
+        {{ anime.title.english ? anime.title.english : anime.title.romaji }}
+      </h3>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <h2 class="fw-bold">{{ anime.season }} {{ anime.seasonYear }}</h2>
+  <div
+    class="badge rounded-pill bg-warning me-2 p-1 px-2 mb-2"
+    *ngFor="let genre of anime.genres"
+  >
+    {{ genre }}
+  </div>
+</ng-template>

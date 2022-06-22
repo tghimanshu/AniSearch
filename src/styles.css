@@ -1,0 +1,28 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+/* Anime Card Hover Traingle */
+.animeCardHoverLeft::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  background-color: orange;
+  transform: rotate(-45deg) translateX(-50%);
+  z-index: -1;
+}
+
+.animeCardHoverRight::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  background-color: orange;
+  transform: rotate(-45deg) translateX(50%);
+  z-index: -1;
+}
