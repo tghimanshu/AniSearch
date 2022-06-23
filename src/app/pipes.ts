@@ -10,3 +10,13 @@ export class SafePipe implements PipeTransform {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
+
+@Pipe({
+  name: 'urlEncode',
+})
+export class UrlEncodePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(text: string) {
+    return encodeURIComponent(text);
+  }
+}

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnimeListComponent } from './components/anime-list/anime-list.component';
 import { RecentReleaseComponent } from './components/recent-release/recent-release.component';
 import { SingleAnimeComponent } from './components/single-anime/single-anime.component';
+import { WatchEpisodeComponent } from './components/watch-episode/watch-episode.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'anime/:id',
     component: SingleAnimeComponent,
+  },
+  {
+    path: ':anime/:id',
+    component: WatchEpisodeComponent,
   },
 ];
 

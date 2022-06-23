@@ -6,7 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
-import { LatestRelease } from 'src/app/models/lists.model';
+import { LatestRelease } from 'src/app/models/models';
 
 @Component({
   selector: 'app-episode-card',

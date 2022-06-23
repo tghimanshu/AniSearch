@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="episode-container">
+    <mat-toolbar>
+      <mat-toolbar-row class="d-flex justify-content-between">
+        <span
+          >Ep {{ episodeId.split("-")[episodeId.split("-").length - 1] }}</span
+        >
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <iframe
+      [src]="streamUrl | safe"
+      referrerpolicy="unsafe-url"
+      *ngIf="streamUrl"
+      allowfullscreen
+      class="episodeVideo"
+    ></iframe>
+    <div class="episode-list my-5" *ngIf="animeDetails">
+      <h4
+        class="badge bg-secondary px-4 me-3"
+        *ngFor="let episode of animeDetails.episodesList.reverse()"
+        [routerLink]="[
+          '/',
+          animeDetails.animeTitle | urlEncode,
+          episode.episodeId
+        ]"
+        routerLinkActive="bg-success"
+      >
+        {{ episode.episodeNum }}
+      </h4>
+    </div>
+  </div>
+</div>

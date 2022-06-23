@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { LatestRelease } from 'src/app/models/lists.model';
-import { AnimesService } from 'src/app/service/animes.service';
+import { LatestRelease } from 'src/app/models/models';
+import { AnimesService } from 'src/app/services/animes.service';
 
 @Component({
   selector: 'app-recent-release',

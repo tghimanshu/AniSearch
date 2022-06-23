@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
-import { LatestRelease } from '../models/lists.model';
+import { BehaviorSubject, map, exhaustMap, take } from 'rxjs';
+import { AnimeDetails, LatestRelease } from '../models/models';
+import { allAnimesQuery, singleAnimeQuery } from './anilistQueries';
 
 export interface Anime {
   id: number;
@@ -38,34 +39,7 @@ export class AnimesService {
   constructor(private http: HttpClient) {}
 
   getAnimes(pageNo: number, search?: string) {
-    const query = `
-    query ($pageNo: Int) {
-        Page (page: $pageNo, perPage: 25) {
-          pageInfo {
-            currentPage, 
-            hasNextPage
-          }
-          media (${
-            search && search !== '' ? `search: "${search}",` : ''
-          } type: ANIME) {
-            id, 
-            format, 
-            season,
-            seasonYear,
-            genres,
-            episodes, 
-            coverImage { 
-              large
-            } 
-            title {
-              romaji
-              english
-              native
-            }
-          }
-        }
-      }
-    `;
+    const query = allAnimesQuery(pageNo, search);
 
     const variables = {
       pageNo: pageNo,
@@ -95,40 +69,11 @@ export class AnimesService {
   }
 
   getSingleAnimes(id: number) {
-    const query = `
-    query ($id: Int) {
-          Media (id: $id) {
-            id, 
-            format, 
-            episodes, 
-            coverImage { 
-              large
-            } 
-            bannerImage 
-            title {
-              romaji
-              english
-              native
-            }
-            description
-            startDate { day month year }
-            endDate { day month year }
-            season
-            seasonYear
-            duration
-            genres
-            averageScore
-            meanScore
-            popularity
-            trending
-            tags { name }
-        }
-      }
-    `;
-
+    const query = singleAnimeQuery(id);
     const variables = {
       id: id,
     };
+
     return this.http
       .post<{
         data: {
@@ -153,5 +98,49 @@ export class AnimesService {
         '&type=' +
         subOrDub
     );
+  }
+  getEpisode(id: string, anime: string) {
+    return this.http
+      .get<{ Referer: string; sources: object[]; sourcesbk: object[] }>(
+        'https://gogoanime.herokuapp.com/vidcdn/watch/' + id
+      )
+      .pipe(
+        // take(1),
+        // exhaustMap((episode) => {
+        //   return this.http
+        //     .get<object[]>(
+        //       'https://gogoanime.herokuapp.com/search?keyw=' + anime
+        //     )
+        //     .pipe(
+        //       map((data) => {
+        //         return { episodeUri: episode.Referer, anime: data[0] };
+        //       })
+        //     );
+        // })
+        map((data) => {
+          return data.Referer;
+        })
+      );
+  }
+
+  getAnimeDetailsFromTitle(animeTitle: string) {
+    return this.http
+      .get<
+        {
+          animeId: string;
+          animeImg: string;
+          animeTitle: string;
+          animeUrl: string;
+          status: string;
+        }[]
+      >('https://gogoanime.herokuapp.com/search?keyw=' + animeTitle)
+      .pipe(
+        take(1),
+        exhaustMap((data) => {
+          return this.http.get<AnimeDetails>(
+            'https://gogoanime.herokuapp.com/anime-details/' + data[0].animeId
+          );
+        })
+      );
   }
 }

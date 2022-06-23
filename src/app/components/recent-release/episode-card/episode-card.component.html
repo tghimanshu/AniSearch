@@ -1,4 +1,9 @@
-<a [href]="anime.episodeUrl" class="anime-card d-block" @showAnimeCard>
+<a
+  [routerLink]="['/', anime.animeTitle | urlEncode, anime.episodeId]"
+  [state]="{ episodeNum: anime.episodeNum, animeTitle: anime.animeTitle }"
+  class="anime-card d-block"
+  @showAnimeCard
+>
   <div
     class="anime-card-img"
     [ngStyle]="{

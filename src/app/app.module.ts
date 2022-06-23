@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,11 +21,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { AnimeListComponent } from './components/anime-list/anime-list.component';
 import { SingleAnimeComponent } from './components/single-anime/single-anime.component';
 import { RecentReleaseComponent } from './components/recent-release/recent-release.component';
-import { SafePipe } from './safe.pipe';
+import { SafePipe, UrlEncodePipe } from './pipes';
 import { EpisodeCardComponent } from './components/recent-release/episode-card/episode-card.component';
 import { AnimeCardComponent } from './components/anime-list/anime-card/anime-card.component';
 import { AnimeCardHoverComponent } from './directives/anime-card-hover/anime-card-hover.component';
 import { AnimeCardHoverDirective } from './directives/anime-card-hover.directive';
+import { ReferrerInterceptor } from './services/referrer.interceptor';
+import { WatchEpisodeComponent } from './components/watch-episode/watch-episode.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { AnimeCardHoverDirective } from './directives/anime-card-hover.directive
     AnimeCardComponent,
     AnimeCardHoverComponent,
     AnimeCardHoverDirective,
+    WatchEpisodeComponent,
+    UrlEncodePipe,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,13 @@ import { AnimeCardHoverDirective } from './directives/anime-card-hover.directive
     MatButtonToggleModule,
     MatTooltipModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ReferrerInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

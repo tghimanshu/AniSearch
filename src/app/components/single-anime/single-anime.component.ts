@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Anime, AnimesService } from 'src/app/service/animes.service';
+import { Anime, AnimesService } from 'src/app/services/animes.service';
 
 @Component({
   selector: 'app-single-anime',

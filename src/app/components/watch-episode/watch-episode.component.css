@@ -1,0 +1,13 @@
+.episode-container {
+  display: block;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.episodeVideo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9.09;
+  margin: 0 auto;
+  border: 5px solid red;
+}
