@@ -28,6 +28,8 @@ import { AnimeCardHoverComponent } from './directives/anime-card-hover/anime-car
 import { AnimeCardHoverDirective } from './directives/anime-card-hover.directive';
 import { ReferrerInterceptor } from './services/referrer.interceptor';
 import { WatchEpisodeComponent } from './components/watch-episode/watch-episode.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { WatchEpisodeComponent } from './components/watch-episode/watch-episode.
     AnimeCardHoverDirective,
     WatchEpisodeComponent,
     UrlEncodePipe,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

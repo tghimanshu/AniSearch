@@ -4,21 +4,21 @@
     background:
       'url(' +
       anime.bannerImage +
-      ') no-repeat center center/cover, linear-gradient(rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%)',
-    height: '100vh',
-    width: '100vw'
+      ') no-repeat center center/cover, linear-gradient(rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%)'
   }"
   *ngIf="anime"
 >
   <div class="container mt-5">
     <div class="row">
       <div class="col-4">
-        <img
-          [src]="anime.coverImage.large"
-          [alt]="anime.title.romaji"
-          class="img-thumbnail"
-        />
-        <div class="alert alert-primary">
+        <div>
+          <img
+            [src]="anime.coverImage.large"
+            [alt]="anime.title.romaji"
+            class="img-thumbnail cover-img"
+          />
+        </div>
+        <div class="badge p-3 bg-dark mt-2">
           {{ anime.startDate.day }}-{{ anime.startDate.month }}-{{
             anime.startDate.year
           }}
@@ -45,7 +45,30 @@
         <p class="description mt-3 text-justify">
           {{ anime.description }}
         </p>
-        <div class="card mt-4">
+        <div class="card mt-2">
+          <div class="card-header">
+            <div class="card-title">Episodes</div>
+          </div>
+          <div class="card-body episodes-list" *ngIf="animeDetails">
+            <h4
+              class="badge bg-warning px-3 py-1 me-2"
+              *ngFor="let episode of animeDetails.episodesList.reverse()"
+              [routerLink]="[
+                '/',
+                animeDetails.animeTitle | urlEncode,
+                episode.episodeId
+              ]"
+            >
+              <!-- + before the variable converts it into a number -->
+              {{
+                +episode.episodeNum < 10
+                  ? "0" + episode.episodeNum
+                  : episode.episodeNum
+              }}
+            </h4>
+          </div>
+        </div>
+        <div class="card mt-2">
           <div class="card-header">
             <div class="card-title">Tags</div>
           </div>

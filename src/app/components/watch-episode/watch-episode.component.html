@@ -14,7 +14,15 @@
       allowfullscreen
       class="episodeVideo"
     ></iframe>
-    <div class="episode-list my-5" *ngIf="animeDetails">
+    <div class="anime-details d-flex justify-content-between mt-3">
+      <h2>{{ animeDetails.animeTitle }}</h2>
+      <h2>
+        <div class="badge">
+          {{ animeDetails.status }}
+        </div>
+      </h2>
+    </div>
+    <div class="episode-list mt-2 mb-5" *ngIf="animeDetails">
       <h4
         class="badge bg-secondary px-4 me-3"
         *ngFor="let episode of animeDetails.episodesList.reverse()"

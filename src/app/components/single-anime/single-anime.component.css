@@ -5,3 +5,14 @@
   overflow-y: auto;
   background-blend-mode: overlay;
 }
+
+.episodes-list {
+  max-height: 230px;
+  overflow-y: auto;
+}
+
+.cover-img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+}

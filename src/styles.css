@@ -1,3 +1,6 @@
+* {
+  user-select: none;
+}
 a {
   text-decoration: none;
   color: white;
@@ -25,4 +28,8 @@ a {
   background-color: orange;
   transform: rotate(-45deg) translateX(50%);
   z-index: -1;
+}
+
+app-root > * > div {
+  padding-top: 75px;
 }
