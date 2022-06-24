@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, exhaustMap, take } from 'rxjs';
+import { BehaviorSubject, map, exhaustMap, take, tap } from 'rxjs';
 import { AnimeDetails, LatestRelease } from '../models/models';
 import { allAnimesQuery, singleAnimeQuery } from './anilistQueries';
 
@@ -29,6 +29,7 @@ export interface Anime {
   popularity?: number;
   trending?: string;
   tags?: { name: string }[];
+  favourites?: number;
 }
 
 @Injectable({
@@ -37,6 +38,34 @@ export interface Anime {
 export class AnimesService {
   public streamUri = new BehaviorSubject<string>('');
   constructor(private http: HttpClient) {}
+
+  getViewer() {
+    const query = `
+     query {
+  Viewer {
+    statistics {
+      anime  {
+        count
+        minutesWatched
+        episodesWatched
+
+      }
+    }
+  }
+}
+    `;
+
+    return this.http
+      .post('https://graphql.anilist.co', {
+        query: query,
+      })
+      .pipe(
+        tap((value) => {
+          console.log(value);
+        })
+      )
+      .subscribe(console.log);
+  }
 
   getAnimes(pageNo: number, search?: string) {
     const query = allAnimesQuery(pageNo, search);

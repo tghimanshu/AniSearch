@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { LatestRelease } from 'src/app/models/models';
 import { AnimesService } from 'src/app/services/animes.service';
@@ -33,5 +33,14 @@ export class RecentReleaseComponent implements OnInit {
       .subscribe((data) => {
         this.latestReleases.push(...data);
       });
+  }
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    if (
+      window.innerHeight + 50 + window.scrollY >=
+      document.body.offsetHeight
+    ) {
+      this.addPage();
+    }
   }
 }

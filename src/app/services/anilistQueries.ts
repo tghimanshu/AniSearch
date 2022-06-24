@@ -3,21 +3,21 @@ export const allAnimesQuery = (pageNo: number, search?: string) => {
     query ($pageNo: Int) {
         Page (page: $pageNo, perPage: 25) {
           pageInfo {
-            currentPage, 
+            currentPage,
             hasNextPage
           }
           media (${
             search && search !== '' ? `search: "${search}",` : ''
           } type: ANIME) {
-            id, 
-            format, 
+            id,
+            format,
             season,
             seasonYear,
             genres,
-            episodes, 
-            coverImage { 
+            episodes,
+            coverImage {
               large
-            } 
+            }
             title {
               romaji
               english
@@ -33,13 +33,13 @@ export const singleAnimeQuery = (id: number) => {
   return `
     query ($id: Int) {
           Media (id: $id) {
-            id, 
-            format, 
-            episodes, 
-            coverImage { 
+            id,
+            format,
+            episodes,
+            coverImage {
               large
-            } 
-            bannerImage 
+            }
+            bannerImage
             title {
               romaji
               english
@@ -56,6 +56,7 @@ export const singleAnimeQuery = (id: number) => {
             meanScore
             popularity
             trending
+            favourites
             tags { name }
         }
       }

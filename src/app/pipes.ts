@@ -20,3 +20,13 @@ export class UrlEncodePipe implements PipeTransform {
     return encodeURIComponent(text);
   }
 }
+
+@Pipe({
+  name: 'sanitizeHtml',
+})
+export class ParseHTMLPipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(html: any) {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+}

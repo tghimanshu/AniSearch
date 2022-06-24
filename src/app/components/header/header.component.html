@@ -30,7 +30,8 @@
             >
           </li>
         </ul>
-        <form class="d-flex" *ngIf="!token">
+        <!-- FireBase Auth -->
+        <!-- <form class="d-flex" *ngIf="!token">
           <button
             type="button"
             class="btn btn-outline-primary me-2"
@@ -46,6 +47,36 @@
           <button type="button" class="btn btn-danger" (click)="logout()">
             Log Out
           </button>
+        </form> -->
+        <form class="d-flex" *ngIf="!anilistToken">
+          <a
+            href="https://anilist.co/api/v2/oauth/authorize?client_id=4194&response_type=token"
+            class="btn btn-primary"
+            >Login With AniList</a
+          >
+        </form>
+        <form class="d-flex" *ngIf="anilistToken">
+          <div class="flex-shrink-0 dropdown">
+            <a
+              href="#"
+              class="d-block link-dark text-decoration-none dropdown-toggle"
+              id="dropdownUser2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Hello, {{ name ? name : "User" }}
+            </a>
+            <ul
+              class="dropdown-menu text-small shadow"
+              aria-labelledby="dropdownUser2"
+            >
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" (click)="logout()">Sign out</a></li>
+            </ul>
+          </div>
         </form>
       </div>
     </div>

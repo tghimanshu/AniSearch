@@ -21,7 +21,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { AnimeListComponent } from './components/anime-list/anime-list.component';
 import { SingleAnimeComponent } from './components/single-anime/single-anime.component';
 import { RecentReleaseComponent } from './components/recent-release/recent-release.component';
-import { SafePipe, UrlEncodePipe } from './pipes';
+import { ParseHTMLPipe, SafePipe, UrlEncodePipe } from './pipes';
 import { EpisodeCardComponent } from './components/recent-release/episode-card/episode-card.component';
 import { AnimeCardComponent } from './components/anime-list/anime-card/anime-card.component';
 import { AnimeCardHoverComponent } from './directives/anime-card-hover/anime-card-hover.component';
@@ -30,6 +30,8 @@ import { ReferrerInterceptor } from './services/referrer.interceptor';
 import { WatchEpisodeComponent } from './components/watch-episode/watch-episode.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { ApproveUserComponent } from './components/user/approve-user/approve-user.component';
+import { AnilistInterceptorInterceptor } from './services/anilist-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,8 +47,10 @@ import { SignupComponent } from './components/signup/signup.component';
     AnimeCardHoverDirective,
     WatchEpisodeComponent,
     UrlEncodePipe,
+    ParseHTMLPipe,
     LoginComponent,
     SignupComponent,
+    ApproveUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,7 @@ import { SignupComponent } from './components/signup/signup.component';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ReferrerInterceptor,
+      useClass: AnilistInterceptorInterceptor,
       multi: true,
     },
   ],

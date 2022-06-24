@@ -30,9 +30,13 @@
                 </em>
               </small>
             </div>
-            <div class="title-info">
-              <mat-icon fontSet="">thumb_up</mat-icon>
-              favourite
+            <div
+              class="title-info d-flex align-items-center justify-content-center"
+            >
+              <mat-icon class="me-2">thumb_up</mat-icon>
+              <h2 class="mb-0 me-3">{{ anime.averageScore }}%</h2>
+              <mat-icon class="me-2">favorite</mat-icon>
+              <h2 class="mb-0">{{ anime.favourites }}</h2>
             </div>
           </div>
           <div class="metaInfo mt-3">
@@ -40,14 +44,18 @@
             <div class="badge bg-primary me-2">
               {{ anime.episodes }} Episodes
             </div>
-            <div class="badge bg-secondary me-2">{{ anime.duration }}m/ep</div>
+            <div class="badge bg-secondary me-2 fw-bold">
+              {{ anime.duration }}m / ep
+            </div>
             <div class="badge bg-dark">
               {{ anime.season }} - {{ anime.seasonYear }}
             </div>
           </div>
-          <p class="description mt-3 text-justify">
-            {{ anime.description }}
-          </p>
+          <p
+            class="description mt-3 text-justify"
+            [innerHTML]="anime.description | sanitizeHtml"
+          ></p>
+          <hr />
           <div class="mt-2">
             <h3 class="card-title">Episodes</h3>
             <div class="episodes-list" *ngIf="animeDetails">

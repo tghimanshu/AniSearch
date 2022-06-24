@@ -5,7 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Anime, AnimesService } from 'src/app/services/animes.service';
 
 @Component({
@@ -62,5 +62,14 @@ export class AnimeListComponent implements OnInit {
         this.animes = data.animes;
         this.currentPage = data.pageNumber;
       });
+  }
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    if (
+      window.innerHeight + 50 + window.scrollY >=
+      document.body.offsetHeight
+    ) {
+      this.loadMoreAnimes();
+    }
   }
 }
