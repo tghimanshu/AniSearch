@@ -1,5 +1,5 @@
 .anime-card {
-  box-shadow: 0.5px 0.5px 8px 1px orange;
+  box-shadow: 0.5px 0.5px 8px 1px var(--primary-color);
   padding: 5px;
   border-radius: 10px;
   overflow: hidden;

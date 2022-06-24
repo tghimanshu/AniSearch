@@ -93,7 +93,7 @@ export class AnimesService {
   getRecentReleases(type: string, pageNo: number = 1) {
     const subOrDub = type === 'sub' ? 1 : 2;
     return this.http.get<LatestRelease[]>(
-      'https://gogoanime.herokuapp.com/recent-release?page=' +
+      'https://anisearch-api.herokuapp.com/recent-release?page=' +
         pageNo +
         '&type=' +
         subOrDub
@@ -102,7 +102,7 @@ export class AnimesService {
   getEpisode(id: string, anime: string) {
     return this.http
       .get<{ Referer: string; sources: object[]; sourcesbk: object[] }>(
-        'https://gogoanime.herokuapp.com/vidcdn/watch/' + id
+        'https://anisearch-api.herokuapp.com/vidcdn/watch/' + id
       )
       .pipe(
         // take(1),
@@ -133,12 +133,13 @@ export class AnimesService {
           animeUrl: string;
           status: string;
         }[]
-      >('https://gogoanime.herokuapp.com/search?keyw=' + animeTitle)
+      >('https://anisearch-api.herokuapp.com/search?keyw=' + animeTitle)
       .pipe(
         take(1),
         exhaustMap((data) => {
           return this.http.get<AnimeDetails>(
-            'https://gogoanime.herokuapp.com/anime-details/' + data[0].animeId
+            'https://anisearch-api.herokuapp.com/anime-details/' +
+              data[0].animeId
           );
         })
       );

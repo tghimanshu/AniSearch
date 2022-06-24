@@ -8,71 +8,69 @@
   }"
   *ngIf="anime"
 >
-  <div class="container mt-5">
+  <div class="container mt-2">
     <div class="row">
-      <div class="col-4">
-        <div>
+      <div class="col-12 col-lg-3 mb-5 mb-lg-0">
+        <div class="p-4">
           <img
             [src]="anime.coverImage.large"
             [alt]="anime.title.romaji"
-            class="img-thumbnail cover-img"
+            class="img-fluid cover-img"
           />
         </div>
-        <div class="badge p-3 bg-dark mt-2">
-          {{ anime.startDate.day }}-{{ anime.startDate.month }}-{{
-            anime.startDate.year
-          }}
-          to {{ anime.endDate.day }}-{{ anime.endDate.month }}-{{
-            anime.endDate.year
-          }}
-        </div>
       </div>
-      <div class="col-8">
-        <h1 class="fw-bold mb-0">{{ anime.title.english }}</h1>
-        <small>
-          <em>
-            {{ anime.title.romaji + ", " + anime.title.native }}
-          </em>
-        </small>
-        <div class="metaInfo mt-3">
-          <div class="badge bg-warning me-2">{{ anime.format }}</div>
-          <div class="badge bg-primary me-2">{{ anime.episodes }} Episodes</div>
-          <div class="badge bg-secondary me-2">{{ anime.duration }}m/ep</div>
-          <div class="badge bg-dark">
-            {{ anime.season }} - {{ anime.seasonYear }}
+      <div class="col-12 col-lg-9">
+        <div class="anime-info p-4">
+          <div class="anime-header d-flex justify-content-between">
+            <div class="titles">
+              <h1 class="fw-bold mb-0">{{ anime.title.english }}</h1>
+              <small>
+                <em>
+                  {{ anime.title.romaji + ", " + anime.title.native }}
+                </em>
+              </small>
+            </div>
+            <div class="title-info">
+              <mat-icon fontSet="">thumb_up</mat-icon>
+              favourite
+            </div>
           </div>
-        </div>
-        <p class="description mt-3 text-justify">
-          {{ anime.description }}
-        </p>
-        <div class="card mt-2">
-          <div class="card-header">
-            <div class="card-title">Episodes</div>
+          <div class="metaInfo mt-3">
+            <div class="badge bg-warning me-2">{{ anime.format }}</div>
+            <div class="badge bg-primary me-2">
+              {{ anime.episodes }} Episodes
+            </div>
+            <div class="badge bg-secondary me-2">{{ anime.duration }}m/ep</div>
+            <div class="badge bg-dark">
+              {{ anime.season }} - {{ anime.seasonYear }}
+            </div>
           </div>
-          <div class="card-body episodes-list" *ngIf="animeDetails">
-            <h4
-              class="badge bg-warning px-3 py-1 me-2"
-              *ngFor="let episode of animeDetails.episodesList.reverse()"
-              [routerLink]="[
-                '/',
-                animeDetails.animeTitle | urlEncode,
-                episode.episodeId
-              ]"
-            >
-              <!-- + before the variable converts it into a number -->
-              {{
-                +episode.episodeNum < 10
-                  ? "0" + episode.episodeNum
-                  : episode.episodeNum
-              }}
-            </h4>
+          <p class="description mt-3 text-justify">
+            {{ anime.description }}
+          </p>
+          <div class="mt-2">
+            <h3 class="card-title">Episodes</h3>
+            <div class="episodes-list" *ngIf="animeDetails">
+              <h4
+                class="badge bg-warning px-3 py-1 me-2"
+                *ngFor="let episode of animeDetails.episodesList.reverse()"
+                [routerLink]="[
+                  '/',
+                  animeDetails.animeTitle | urlEncode,
+                  episode.episodeId
+                ]"
+              >
+                <!-- + before the variable converts it into a number -->
+                {{
+                  +episode.episodeNum < 10
+                    ? "0" + episode.episodeNum
+                    : episode.episodeNum
+                }}
+              </h4>
+            </div>
           </div>
-        </div>
-        <div class="card mt-2">
-          <div class="card-header">
-            <div class="card-title">Tags</div>
-          </div>
-          <div class="card-body">
+          <div class="mt-2">
+            <h3 class="title">Tags</h3>
             <div class="badge bg-info me-2 mb-2" *ngFor="let tag of anime.tags">
               {{ tag.name }}
             </div>
