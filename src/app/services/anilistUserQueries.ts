@@ -8,3 +8,12 @@ query {
   }
 }
 `;
+
+export const userAnimeStatusQuery = `
+query ($animeId: Int, $userId: Int) {
+  MediaList(mediaId:$animeId, userId:$userId){
+    status
+    progress
+  }
+}
+`;

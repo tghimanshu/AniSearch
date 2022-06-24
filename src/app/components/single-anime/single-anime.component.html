@@ -17,6 +17,25 @@
             [alt]="anime.title.romaji"
             class="img-fluid cover-img"
           />
+          <p
+            class="btn btn-primary d-block mt-4"
+            [ngClass]="{
+              'btn-secondary': !animeStatus,
+              'btn-primary':
+                animeStatus === 'CURRENT' || animeStatus === 'REPEATING',
+              'btn-success': animeStatus === 'COMPLETED',
+              'btn-warning': animeStatus === 'PLANNING',
+              'btn-info': animeStatus === 'PAUSED',
+              'btn-danger': animeStatus === 'DROPPED'
+            }"
+          >
+            {{ animeStatus ? animeStatus : "Add To List" }}
+            {{
+              animeStatus &&
+                (animeStatus === "CURRENT" || animeStatus === "REPEATING") &&
+                " - " + animeProgress + " Eps"
+            }}
+          </p>
         </div>
       </div>
       <div class="col-12 col-lg-9">

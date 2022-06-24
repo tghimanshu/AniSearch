@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { userQuery } from './anilistUserQueries';
+import { userAnimeStatusQuery, userQuery } from './anilistUserQueries';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +30,17 @@ export class AnilistUserService {
   getUserAnimeList() {
     return this.http.post('https://graphql.anilist.co', {
       query: '',
+    });
+  }
+  getUserAnimeStatus(animeId: number, userId: number) {
+    return this.http.post<{
+      data: { MediaList: { status: string; progress: number } };
+    }>('https://graphql.anilist.co', {
+      query: userAnimeStatusQuery,
+      variables: {
+        animeId: animeId,
+        userId: userId,
+      },
     });
   }
 }

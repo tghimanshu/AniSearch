@@ -39,34 +39,6 @@ export class AnimesService {
   public streamUri = new BehaviorSubject<string>('');
   constructor(private http: HttpClient) {}
 
-  getViewer() {
-    const query = `
-     query {
-  Viewer {
-    statistics {
-      anime  {
-        count
-        minutesWatched
-        episodesWatched
-
-      }
-    }
-  }
-}
-    `;
-
-    return this.http
-      .post('https://graphql.anilist.co', {
-        query: query,
-      })
-      .pipe(
-        tap((value) => {
-          console.log(value);
-        })
-      )
-      .subscribe(console.log);
-  }
-
   getAnimes(pageNo: number, search?: string) {
     const query = allAnimesQuery(pageNo, search);
 

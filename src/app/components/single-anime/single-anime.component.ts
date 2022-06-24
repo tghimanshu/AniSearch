@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimeDetails } from 'src/app/models/models';
+import { AnilistUserService } from 'src/app/services/anilist-user.service';
 import { Anime, AnimesService } from 'src/app/services/animes.service';
 
 @Component({
@@ -11,10 +12,13 @@ import { Anime, AnimesService } from 'src/app/services/animes.service';
 export class SingleAnimeComponent implements OnInit {
   anime!: Anime;
   animeDetails!: AnimeDetails;
+  animeStatus!: String;
+  animeProgress!: number;
 
   constructor(
     private route: ActivatedRoute,
-    private animesService: AnimesService
+    private animesService: AnimesService,
+    private anilistUserService: AnilistUserService
   ) {}
 
   ngOnInit(): void {
@@ -23,8 +27,25 @@ export class SingleAnimeComponent implements OnInit {
       this.anime = value;
       this.animesService
         .getAnimeDetailsFromTitle(this.anime.title.romaji)
-        .subscribe((data) => {
-          this.animeDetails = data;
+        .subscribe({
+          next: (data) => {
+            this.animeDetails = data;
+          },
+          complete: () => {
+            this.anilistUserService
+              .getUserAnimeStatus(
+                +id,
+                +JSON.parse(localStorage.getItem('anilist_user') as string)[
+                  'id'
+                ]
+              )
+              .subscribe({
+                next: (data) => {
+                  this.animeStatus = data.data.MediaList.status;
+                  this.animeProgress = data.data.MediaList.progress;
+                },
+              });
+          },
         });
     });
   }
