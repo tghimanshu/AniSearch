@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AnilistUserService } from 'src/app/services/anilist-user.service';
-import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private firebaseService: FirebaseService,
     private anilistUserService: AnilistUserService
   ) {}
 

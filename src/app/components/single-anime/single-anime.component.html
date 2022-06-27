@@ -31,9 +31,11 @@
           >
             {{ animeStatus ? animeStatus : "Add To List" }}
             {{
-              animeStatus &&
-                (animeStatus === "CURRENT" || animeStatus === "REPEATING") &&
-                " - " + animeProgress + " Eps"
+              animeStatus
+                ? animeStatus === "CURRENT" || animeStatus === "REPEATING"
+                  ? " - " + animeProgress + " Eps"
+                  : ""
+                : ""
             }}
           </p>
         </div>
@@ -80,7 +82,7 @@
             <div class="episodes-list" *ngIf="animeDetails">
               <h4
                 class="badge bg-warning px-3 py-1 me-2"
-                *ngFor="let episode of animeDetails.episodesList.reverse()"
+                *ngFor="let episode of animeDetails.episodesList"
                 [routerLink]="[
                   '/',
                   animeDetails.animeTitle | urlEncode,

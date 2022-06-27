@@ -106,18 +106,6 @@ export class AnimesService {
         'https://anisearch-api.herokuapp.com/vidcdn/watch/' + id
       )
       .pipe(
-        // take(1),
-        // exhaustMap((episode) => {
-        //   return this.http
-        //     .get<object[]>(
-        //       'https://gogoanime.herokuapp.com/search?keyw=' + anime
-        //     )
-        //     .pipe(
-        //       map((data) => {
-        //         return { episodeUri: episode.Referer, anime: data[0] };
-        //       })
-        //     );
-        // })
         map((data) => {
           return data.Referer;
         })
@@ -138,11 +126,25 @@ export class AnimesService {
       .pipe(
         take(1),
         exhaustMap((data) => {
-          return this.http.get<AnimeDetails>(
-            'https://anisearch-api.herokuapp.com/anime-details/' +
-              data[0].animeId
-          );
+          return this.http
+            .get<AnimeDetails>(
+              'https://anisearch-api.herokuapp.com/anime-details/' +
+                data[0].animeId
+            )
+            .pipe(
+              map((data) => {
+                data.episodesList.reverse();
+                return data;
+              })
+            );
         })
       );
+  }
+  getAnimeFromTitle(animeTitle: string) {
+    return this.getAnimes(1, animeTitle).pipe(
+      map((data: { animes: Anime[]; pageNumber: number }) => {
+        return data.animes[0];
+      })
+    );
   }
 }

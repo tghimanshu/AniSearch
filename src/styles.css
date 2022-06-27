@@ -4,6 +4,9 @@
 :root {
   --primary-color: #ea9828;
 }
+*[ng-reflect-router-link] {
+  cursor: pointer;
+}
 *::-webkit-scrollbar {
   width: 6px;
 }

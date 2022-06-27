@@ -25,24 +25,22 @@ export class SingleAnimeComponent implements OnInit {
     let id = this.route.snapshot.params['id'];
     this.animesService.getSingleAnimes(id).subscribe((value: Anime) => {
       this.anime = value;
-      this.animesService
-        .getAnimeDetailsFromTitle(this.anime.title.romaji)
+      this.anilistUserService
+        .getUserAnimeStatus(
+          +id,
+          +JSON.parse(localStorage.getItem('anilist_user') as string)['id']
+        )
         .subscribe({
           next: (data) => {
-            this.animeDetails = data;
+            this.animeStatus = data.data.MediaList.status;
+            this.animeProgress = data.data.MediaList.progress;
           },
           complete: () => {
-            this.anilistUserService
-              .getUserAnimeStatus(
-                +id,
-                +JSON.parse(localStorage.getItem('anilist_user') as string)[
-                  'id'
-                ]
-              )
+            this.animesService
+              .getAnimeDetailsFromTitle(this.anime.title.romaji)
               .subscribe({
                 next: (data) => {
-                  this.animeStatus = data.data.MediaList.status;
-                  this.animeProgress = data.data.MediaList.progress;
+                  this.animeDetails = data;
                 },
               });
           },

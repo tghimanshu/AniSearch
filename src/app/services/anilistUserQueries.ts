@@ -17,3 +17,10 @@ query ($animeId: Int, $userId: Int) {
   }
 }
 `;
+
+export const userAnimeProgressUpdateQuery = `
+  mutation SaveMediaListEntry($animeId: Int, $progress: Int, $status: MediaListStatus) {
+    SaveMediaListEntry(mediaId: $animeId, progress: $progress, status: $status){status, progress}
+
+  }
+`;

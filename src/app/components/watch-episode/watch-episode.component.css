@@ -9,5 +9,9 @@
   height: 100%;
   aspect-ratio: 16/9.09;
   margin: 0 auto;
-  border: 5px solid red;
+}
+
+.episode-badge {
+  width: 60px;
+  text-align: center;
 }

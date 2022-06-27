@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { userAnimeStatusQuery, userQuery } from './anilistUserQueries';
+import {
+  userAnimeProgressUpdateQuery,
+  userAnimeStatusQuery,
+  userQuery,
+} from './anilistUserQueries';
+import { Anime } from './animes.service';
 
 @Injectable({
   providedIn: 'root',
@@ -42,5 +47,28 @@ export class AnilistUserService {
         userId: userId,
       },
     });
+  }
+  updateProgress(anime: Anime, progress: number) {
+    let status = 'CURRENT';
+    if (anime.episodes === progress) status = 'COMPLETED';
+    return this.http
+      .post<{
+        data: { SaveMediaListEntry: { status: String; progress: number } };
+      }>('https://graphql.anilist.co', {
+        query: userAnimeProgressUpdateQuery,
+        variables: {
+          animeId: anime.id,
+          status: status,
+          progress: progress,
+        },
+      })
+      .subscribe({
+        next: (data) => {
+          return;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 }
