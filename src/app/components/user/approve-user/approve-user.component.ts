@@ -16,12 +16,14 @@ export class ApproveUserComponent implements OnInit {
 
   ngOnInit(): void {
     const fragment = this.route.snapshot.fragment?.split('&') as string[];
-    localStorage.setItem('anilist_token', fragment[0].split('=')[1]);
-    this.aniListUserService.anilistToken.next(fragment[0].split('=')[1]);
-    this.aniListUserService.getCurrentUser().subscribe((data) => {
-      localStorage.setItem('anilist_user', JSON.stringify(data));
-    });
+    if (fragment) {
+      localStorage.setItem('anilist_token', fragment[0].split('=')[1]);
+      this.aniListUserService.anilistToken.next(fragment[0].split('=')[1]);
+      this.aniListUserService.getCurrentUser().subscribe((data) => {
+        localStorage.setItem('anilist_user', JSON.stringify(data));
+      });
 
-    this.router.navigate(['/']);
+      this.router.navigate(['/']);
+    }
   }
 }

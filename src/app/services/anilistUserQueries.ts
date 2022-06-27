@@ -3,8 +3,36 @@ query {
   Viewer {
     id
     name
-    avatar {large medium}
     about
+    avatar {
+      large
+      medium
+    }
+    bannerImage
+    statistics {
+      anime {
+        count
+        meanScore
+        standardDeviation
+        minutesWatched
+        episodesWatched
+        formats {
+          count
+          meanScore
+          minutesWatched
+          mediaIds
+          format
+        }
+        statuses {
+          count
+          meanScore
+          minutesWatched
+          mediaIds
+          status
+        }
+
+      }
+    }
   }
 }
 `;

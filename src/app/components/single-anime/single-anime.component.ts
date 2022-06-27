@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimeDetails } from 'src/app/models/models';
@@ -35,6 +36,15 @@ export class SingleAnimeComponent implements OnInit {
             this.animeStatus = data.data.MediaList.status;
             this.animeProgress = data.data.MediaList.progress;
           },
+          error: (err: HttpErrorResponse) => {
+            this.animesService
+              .getAnimeDetailsFromTitle(this.anime.title.romaji)
+              .subscribe({
+                next: (data) => {
+                  this.animeDetails = data;
+                },
+              });
+          },
           complete: () => {
             this.animesService
               .getAnimeDetailsFromTitle(this.anime.title.romaji)
@@ -46,5 +56,12 @@ export class SingleAnimeComponent implements OnInit {
           },
         });
     });
+  }
+
+  updateStatus(status: string) {
+    this.anilistUserService.updateStatus(this.anime, status);
+    this.animeStatus = status;
+    this.animeProgress =
+      status === 'COMPLETED' ? this.anime.episodes : this.animeProgress;
   }
 }

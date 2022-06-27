@@ -43,30 +43,33 @@ export class WatchEpisodeComponent implements OnInit {
         },
       });
     });
-    // this.animesService
-    //   .getEpisode(this.episodeId, this.animeTitle)
-    //   .subscribe((data) => {
-    //     // this.streamUrl = data.episodeUri;
-    //     this.streamUrl = data;
-    //   });
     this.animesService
       .getAnimeDetailsFromTitle(this.animeTitle)
       .subscribe((data) => (this.animeDetails = data));
   }
 
-  // TODO: Make Updates to Anilist too
+  previousEpisode() {
+    try {
+      let prevEpNum: number =
+        +this.episodeId.split('-')[this.episodeId.split('-').length - 1] - 2;
+      this.anilistUserService.updateProgress(this.anime, prevEpNum);
+      this.router.navigate([
+        encodeURIComponent(this.animeDetails.animeTitle),
+        this.animeDetails.episodesList[prevEpNum].episodeId,
+      ]);
+    } catch (error) {
+      this.router.navigate(['/anime', this.anime.id]);
+    }
+  }
   nextEpisode() {
     try {
-      this.anilistUserService.updateProgress(
-        this.anime,
-        +this.episodeId.split('-')[this.episodeId.split('-').length - 1]
-      );
+      let nextEpNum: number =
+        +this.episodeId.split('-')[this.episodeId.split('-').length - 1];
+      this.anilistUserService.updateProgress(this.anime, nextEpNum);
 
       this.router.navigate([
         encodeURIComponent(this.animeDetails.animeTitle),
-        this.animeDetails.episodesList[
-          +this.episodeId.split('-')[this.episodeId.split('-').length - 1]
-        ].episodeId,
+        this.animeDetails.episodesList[nextEpNum].episodeId,
       ]);
     } catch (error) {
       this.router.navigate(['/anime', this.anime.id]);

@@ -33,7 +33,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    console.log('logging out');
+    localStorage.removeItem('anilist_token');
     this.anilistUserService.anilistToken.next('');
     this.router.navigate(['/']);
   }

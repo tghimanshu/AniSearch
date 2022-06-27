@@ -25,13 +25,18 @@
       class="anime-details d-flex justify-content-between mt-3"
       *ngIf="animeDetails"
     >
-      <h2 [routerLink]="anime ? ['/anime', anime.id] : []">
-        {{ animeDetails.animeTitle }}
-      </h2>
+      <div>
+        <h2 [routerLink]="anime ? ['/anime', anime.id] : []">
+          {{ animeDetails.animeTitle }}
+        </h2>
+      </div>
       <h2>
         <div class="badge">
           {{ animeDetails.status }}
         </div>
+        <button class="btn btn-primary me-2" (click)="previousEpisode()">
+          Previous Episode
+        </button>
         <button class="btn btn-success" (click)="nextEpisode()">
           Next Episode
         </button>

@@ -17,27 +17,65 @@
             [alt]="anime.title.romaji"
             class="img-fluid cover-img"
           />
-          <p
-            class="btn btn-primary d-block mt-4"
-            [ngClass]="{
-              'btn-secondary': !animeStatus,
-              'btn-primary':
-                animeStatus === 'CURRENT' || animeStatus === 'REPEATING',
-              'btn-success': animeStatus === 'COMPLETED',
-              'btn-warning': animeStatus === 'PLANNING',
-              'btn-info': animeStatus === 'PAUSED',
-              'btn-danger': animeStatus === 'DROPPED'
-            }"
-          >
-            {{ animeStatus ? animeStatus : "Add To List" }}
-            {{
-              animeStatus
-                ? animeStatus === "CURRENT" || animeStatus === "REPEATING"
-                  ? " - " + animeProgress + " Eps"
+          <div class="dropdown">
+            <p
+              class="btn dropdown-toggle d-block mt-4"
+              [ngClass]="{
+                'btn-secondary': !animeStatus,
+                'btn-primary':
+                  animeStatus === 'CURRENT' || animeStatus === 'REPEATING',
+                'btn-success': animeStatus === 'COMPLETED',
+                'btn-warning': animeStatus === 'PLANNING',
+                'btn-info': animeStatus === 'PAUSED',
+                'btn-danger': animeStatus === 'DROPPED'
+              }"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ animeStatus ? animeStatus : "Add To List" }}
+              {{
+                animeStatus
+                  ? animeStatus === "CURRENT" || animeStatus === "REPEATING"
+                    ? " - " + animeProgress + " Eps"
+                    : ""
                   : ""
-                : ""
-            }}
-          </p>
+              }}
+            </p>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a class="dropdown-item" (click)="updateStatus('PLANNING')"
+                  >PLANNING</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="updateStatus('CURRENT')"
+                  >CURRENT</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="updateStatus('COMPLETED')"
+                  >COMPLETED</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="updateStatus('REPEATING')"
+                  >REPEATING</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="updateStatus('PAUSED')"
+                  >PAUSED</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="updateStatus('DROPPED')"
+                  >DROPPED</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="col-12 col-lg-9">
@@ -78,10 +116,37 @@
           ></p>
           <hr />
           <div class="mt-2">
-            <h3 class="card-title">Episodes</h3>
+            <h3 class="card-title d-flex justify-content-between">
+              <div>Episodes</div>
+
+              <div
+                *ngIf="animeProgress"
+                class="progress"
+                style="
+                  width: 200px;
+                  box-shadow: 0px 0px 1px 0.4px var(--primary-color);
+                "
+              >
+                <div
+                  class="progress-bar bg-warning"
+                  [ngStyle]="{
+                    width: (animeProgress * 100) / anime.episodes + '%'
+                  }"
+                  role="progressbar"
+                  aria-valuenow="2"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {{ (animeProgress * 100) / anime.episodes | number: ".0-0" }}
+                </div>
+              </div>
+            </h3>
             <div class="episodes-list" *ngIf="animeDetails">
               <h4
-                class="badge bg-warning px-3 py-1 me-2"
+                class="badge bg-primary px-3 py-1 me-2"
+                [ngClass]="{
+                  'bg-secondary': +episode.episodeNum <= animeProgress
+                }"
                 *ngFor="let episode of animeDetails.episodesList"
                 [routerLink]="[
                   '/',

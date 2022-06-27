@@ -1,0 +1,26 @@
+.mainBg {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+  overflow-y: auto;
+  background-blend-mode: overlay;
+}
+
+.user-info {
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0.5px 0.5px 8px 1px var(--primary-color),
+    inset 0 0 2000px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.episodes-list {
+  max-height: 230px;
+  overflow-y: auto;
+}
+
+.cover-img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0.5px 0.5px 8px 1px var(--primary-color);
+}

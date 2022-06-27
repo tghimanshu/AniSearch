@@ -92,7 +92,20 @@ export class AnimesService {
   }
 
   getRecentReleases(type: string, pageNo: number = 1) {
-    const subOrDub = type === 'sub' ? 1 : 2;
+    let subOrDub = 1;
+    switch (type) {
+      case 'sub':
+        subOrDub = 1;
+        break;
+      case 'dub':
+        subOrDub = 2;
+        break;
+      case 'cn':
+        subOrDub = 3;
+        break;
+      default:
+        break;
+    }
     return this.http.get<LatestRelease[]>(
       'https://anisearch-api.herokuapp.com/recent-release?page=' +
         pageNo +
@@ -122,7 +135,11 @@ export class AnimesService {
           animeUrl: string;
           status: string;
         }[]
-      >('https://anisearch-api.herokuapp.com/search?keyw=' + animeTitle)
+      >(
+        'https://anisearch-api.herokuapp.com/search?keyw=' +
+          animeTitle.replace(/[^a-zA-Z0-9]/g, '+')
+        // replaces all special characters and spaces with '+' sign
+      )
       .pipe(
         take(1),
         exhaustMap((data) => {
@@ -141,6 +158,9 @@ export class AnimesService {
       );
   }
   getAnimeFromTitle(animeTitle: string) {
+    animeTitle = animeTitle.includes('(Dub)')
+      ? animeTitle.split('(Dub)')[0]
+      : animeTitle;
     return this.getAnimes(1, animeTitle).pipe(
       map((data: { animes: Anime[]; pageNumber: number }) => {
         return data.animes[0];

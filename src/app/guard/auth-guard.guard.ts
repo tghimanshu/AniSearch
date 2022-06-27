@@ -22,7 +22,7 @@ export class AuthGuardGuard implements CanActivate {
     | UrlTree {
     const token = localStorage.getItem('anilist_token');
     if (!token) {
-      this.router.navigate(['login']);
+      this.router.navigate(['approveAnilist']);
       return false;
     }
 
