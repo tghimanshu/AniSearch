@@ -6,7 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
-import { Anime } from 'src/app/services/animes.service';
+import { Anime } from 'src/app/models/models';
 
 @Component({
   selector: 'app-anime-card',

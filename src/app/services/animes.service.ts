@@ -1,36 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, exhaustMap, take, tap } from 'rxjs';
-import { AnimeDetails, LatestRelease } from '../models/models';
+import { Anime, AnimeDetails, LatestRelease } from '../models/models';
 import { allAnimesQuery, singleAnimeQuery } from './anilistQueries';
-
-export interface Anime {
-  id: number;
-  format: string;
-  episodes: number;
-  coverImage: {
-    large: string;
-  };
-  bannerImage: string;
-  title: {
-    romaji: string;
-    english: string;
-    native: string;
-  };
-  description?: string;
-  startDate: { day: number; month: number; year: number };
-  endDate: { day: number; month: number; year: number };
-  season: string;
-  seasonYear: number;
-  duration?: number;
-  genres: string;
-  averageScore?: number;
-  meanScore?: number;
-  popularity?: number;
-  trending?: string;
-  tags?: { name: string }[];
-  favourites?: number;
-}
 
 @Injectable({
   providedIn: 'root',

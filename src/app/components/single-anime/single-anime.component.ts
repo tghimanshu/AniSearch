@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AnimeDetails } from 'src/app/models/models';
+import { Anime, AnimeDetails } from 'src/app/models/models';
 import { AnilistUserService } from 'src/app/services/anilist-user.service';
-import { Anime, AnimesService } from 'src/app/services/animes.service';
+import { AnimesService } from 'src/app/services/animes.service';
 
 @Component({
   selector: 'app-single-anime',

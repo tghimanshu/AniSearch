@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AnimeDetails } from 'src/app/models/models';
 import { AnilistUserService } from 'src/app/services/anilist-user.service';
-import { Anime, AnimesService } from 'src/app/services/animes.service';
+import { AnimesService } from 'src/app/services/animes.service';
+import { Anime } from 'src/app/models/models';
 
 @Component({
   selector: 'app-watch-episode',

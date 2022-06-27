@@ -6,7 +6,8 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Anime, AnimesService } from 'src/app/services/animes.service';
+import { AnimesService } from 'src/app/services/animes.service';
+import { Anime } from 'src/app/models/models';
 
 @Component({
   selector: 'app-anime-list',

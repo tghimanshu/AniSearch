@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { AnilistUser } from '../models/anilistUser.model';
+import { Anime } from '../models/models';
 import {
   userAnimeProgressUpdateQuery,
   userAnimeStatusQuery,
   userQuery,
 } from './anilistUserQueries';
-import { Anime } from './animes.service';
 
 @Injectable({
   providedIn: 'root',
