@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, exhaustMap, take, tap } from 'rxjs';
 import { Anime, AnimeDetails, LatestRelease } from '../models/models';
-import { allAnimesQuery, singleAnimeQuery } from './anilistQueries';
+import {
+  allAnimesQuery,
+  allGenresQuery,
+  singleAnimeQuery,
+} from './anilistQueries';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +17,35 @@ export class AnimesService {
 
   getAnimes(pageNo: number, search?: string) {
     const query = allAnimesQuery(pageNo, search);
+
+    const variables = {
+      pageNo: pageNo,
+    };
+    return this.http
+      .post<{
+        data: {
+          Page: {
+            media: Anime[];
+            pageInfo: { hasNextPage: boolean; currentPage: number };
+          };
+        };
+      }>('https://graphql.anilist.co', {
+        query: query,
+        variables: variables,
+      })
+      .pipe(
+        map((value) => {
+          return {
+            animes: value.data.Page.media,
+            pageNumber: value.data.Page.pageInfo.hasNextPage
+              ? value.data.Page.pageInfo.currentPage
+              : 0,
+          };
+        })
+      );
+  }
+  getGenres(pageNo: number, genre?: string) {
+    const query = allGenresQuery(pageNo, genre);
 
     const variables = {
       pageNo: pageNo,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AnimeDetails } from 'src/app/models/models';
 import { AnilistUserService } from 'src/app/services/anilist-user.service';
@@ -22,7 +22,11 @@ export class WatchEpisodeComponent implements OnInit {
     private route: ActivatedRoute,
     private animesService: AnimesService,
     private anilistUserService: AnilistUserService
-  ) {}
+  ) {
+    window.addEventListener('message', function (event) {
+      console.log('first', event);
+    });
+  }
   ngOnInit(): void {
     // Get Episode
     this.episodeId = this.route.snapshot.params['id'];
@@ -62,6 +66,7 @@ export class WatchEpisodeComponent implements OnInit {
       this.router.navigate(['/anime', this.anime.id]);
     }
   }
+
   nextEpisode() {
     try {
       let nextEpNum: number =

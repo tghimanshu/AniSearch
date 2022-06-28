@@ -115,6 +115,19 @@
             [innerHTML]="anime.description | sanitizeHtml"
           ></p>
           <hr />
+
+          <div class="mt-2">
+            <h3 class="title">Genres</h3>
+            <h5
+              role="button"
+              class="genre badge bg-primary px-3 me-2"
+              *ngFor="let genre of anime.genres"
+              [routerLink]="['/genre', genre]"
+            >
+              {{ genre }}
+            </h5>
+          </div>
+          <hr />
           <div class="mt-2">
             <h3 class="card-title d-flex justify-content-between">
               <div>Episodes</div>
@@ -163,6 +176,7 @@
               </h4>
             </div>
           </div>
+          <hr />
           <div class="mt-2">
             <h3 class="title">Tags</h3>
             <div class="badge bg-info me-2 mb-2" *ngFor="let tag of anime.tags">

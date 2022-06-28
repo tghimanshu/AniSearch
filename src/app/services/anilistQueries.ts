@@ -28,6 +28,36 @@ export const allAnimesQuery = (pageNo: number, search?: string) => {
       }
     `;
 };
+export const allGenresQuery = (pageNo: number, genre?: string) => {
+  return `
+    query ($pageNo: Int) {
+        Page (page: $pageNo, perPage: 25) {
+          pageInfo {
+            currentPage,
+            hasNextPage
+          }
+          media (${
+            genre && genre !== '' ? `genre: "${genre}",` : ''
+          } type: ANIME) {
+            id,
+            format,
+            season,
+            seasonYear,
+            genres,
+            episodes,
+            coverImage {
+              large
+            }
+            title {
+              romaji
+              english
+              native
+            }
+          }
+        }
+      }
+    `;
+};
 
 export const singleAnimeQuery = (id: number) => {
   return `

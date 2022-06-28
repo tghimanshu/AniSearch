@@ -34,6 +34,7 @@ import { ApproveUserComponent } from './components/user/approve-user/approve-use
 import { AnilistInterceptorInterceptor } from './services/anilist-interceptor.interceptor';
 import { GlobalErrorHandler } from './globalErrorHandler';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import { GenresComponent } from './components/genres/genres.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
     SignupComponent,
     ApproveUserComponent,
     UserProfileComponent,
+    GenresComponent,
   ],
   imports: [
     BrowserModule,

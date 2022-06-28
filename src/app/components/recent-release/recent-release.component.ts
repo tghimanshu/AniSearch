@@ -9,7 +9,7 @@ import { AnimesService } from 'src/app/services/animes.service';
   styleUrls: ['./recent-release.component.css'],
 })
 export class RecentReleaseComponent implements OnInit {
-  latestReleases: LatestRelease[] = [];
+  latestReleases!: LatestRelease[];
   subOrDub = 'sub';
   currentPage = 1;
 

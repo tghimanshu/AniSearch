@@ -13,7 +13,7 @@
       </mat-button-toggle-group>
     </mat-toolbar-row>
   </mat-toolbar>
-  <div class="row">
+  <div class="row" *ngIf="latestReleases; else noContent">
     <app-episode-card
       *ngFor="let anime of latestReleases"
       [anime]="anime"
@@ -24,3 +24,9 @@
     <button class="btn btn-dark" (click)="addPage()">Load More</button>
   </div>
 </div>
+
+<ng-template #noContent>
+  <div class="row text-center">
+    <h1>Please Wait...</h1>
+  </div>
+</ng-template>

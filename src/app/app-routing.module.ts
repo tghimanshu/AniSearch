@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnimeListComponent } from './components/anime-list/anime-list.component';
+import { GenresComponent } from './components/genres/genres.component';
 import { LoginComponent } from './components/login/login.component';
 import { RecentReleaseComponent } from './components/recent-release/recent-release.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -24,6 +25,11 @@ const routes: Routes = [
     path: 'anime',
     canActivate: [AuthGuardGuard],
     component: AnimeListComponent,
+  },
+  {
+    path: 'genre/:genre',
+    canActivate: [AuthGuardGuard],
+    component: GenresComponent,
   },
   {
     path: 'anime/:id',

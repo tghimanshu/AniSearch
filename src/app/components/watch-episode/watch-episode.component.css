@@ -11,6 +11,11 @@
   margin: 0 auto;
 }
 
+.episode-list {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
 .episode-badge {
   width: 60px;
   text-align: center;

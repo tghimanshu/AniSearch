@@ -1,19 +1,20 @@
 <div class="container" *ngIf="episodeId">
   <div class="episode-container">
-    <mat-toolbar>
-      <mat-toolbar-row class="d-flex justify-content-between">
+    <div class="bg-dark p-3">
+      <div class="d-flex justify-content-between fw-bold">
         <span
           >Ep {{ episodeId.split("-")[episodeId.split("-").length - 1] }}</span
         >
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <!-- <iframe
+      </div>
+    </div>
+    <iframe
+      #someVar
       [src]="streamUrl | safe"
       referrerpolicy="unsafe-url"
       *ngIf="streamUrl; else streamPlaceholder"
       allowfullscreen
       class="episodeVideo"
-    ></iframe> -->
+    ></iframe>
     <ng-template #streamPlaceholder>
       <div
         class="episodeVideo d-flex justify-content-center align-items-center"
@@ -44,7 +45,7 @@
     </div>
     <div class="episode-list mt-2 mb-5" *ngIf="animeDetails">
       <h4
-        class="badge bg-secondary me-3 episode-badge"
+        class="badge bg-secondary me-2 episode-badge"
         *ngFor="let episode of animeDetails.episodesList"
         [routerLink]="[
           '/',
@@ -53,8 +54,23 @@
         ]"
         routerLinkActive="bg-success"
       >
-        {{ episode.episodeNum }}
+        <a>
+          {{ episode.episodeNum }}
+        </a>
       </h4>
+    </div>
+    <div class="more-info mt-2">
+      <h2 class="mb-1">Genres</h2>
+      <div class="genres d-flex g-2 mb-4">
+        <div
+          role="button"
+          class="genre me-2"
+          *ngFor="let genre of anime.genres"
+          [routerLink]="['/genre', genre]"
+        >
+          <em> {{ genre }}</em>
+        </div>
+      </div>
     </div>
   </div>
 </div>
