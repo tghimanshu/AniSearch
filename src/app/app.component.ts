@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AnilistInterceptorInterceptor } from './services/anilist-interceptor.interceptor';
 import { AnilistUserService } from './services/anilist-user.service';
 
 @Component({
