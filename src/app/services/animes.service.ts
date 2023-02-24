@@ -112,7 +112,7 @@ export class AnimesService {
         break;
     }
     return this.http.get<LatestRelease[]>(
-      'https://anisearch-api.herokuapp.com/recent-release?page=' +
+      'https://gogoanime.consumet.stream/recent-release?page=' +
         pageNo +
         '&type=' +
         subOrDub
@@ -121,7 +121,7 @@ export class AnimesService {
   getEpisode(id: string, anime: string) {
     return this.http
       .get<{ Referer: string; sources: object[]; sourcesbk: object[] }>(
-        'https://anisearch-api.herokuapp.com/vidcdn/watch/' + id
+        'https://gogoanime.consumet.stream/vidcdn/watch/' + id
       )
       .pipe(
         map((data) => {
@@ -141,7 +141,7 @@ export class AnimesService {
           status: string;
         }[]
       >(
-        'https://anisearch-api.herokuapp.com/search?keyw=' +
+        'https://gogoanime.consumet.stream/search?keyw=' +
           animeTitle.replace(/[^a-zA-Z0-9]/g, '+')
         // replaces all special characters and spaces with '+' sign
       )
@@ -150,7 +150,7 @@ export class AnimesService {
         exhaustMap((data) => {
           return this.http
             .get<AnimeDetails>(
-              'https://anisearch-api.herokuapp.com/anime-details/' +
+              'https://gogoanime.consumet.stream/anime-details/' +
                 data[0].animeId
             )
             .pipe(
